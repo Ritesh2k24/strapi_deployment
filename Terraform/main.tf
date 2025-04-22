@@ -1,5 +1,5 @@
 resource "aws_instance" "strapi_ec2" {
-  ami                    = "ami-08a52ddb321b32a8c" 
+  ami                    = "ami-084568db4383264d4" 
   instance_type          = "t2.small"
   key_name               = "master"
   associate_public_ip_address = true
