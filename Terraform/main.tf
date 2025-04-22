@@ -1,8 +1,3 @@
-provider "aws" {
-  region  = "us-east-1"
-  profile = "default"
-}
-
 resource "aws_instance" "strapi_ec2" {
   ami                    = "ami-08a52ddb321b32a8c" 
   instance_type          = "t2.small"
