@@ -1,5 +1,5 @@
 resource "aws_instance" "strapi_ec2" {
-  ami                    = "ami-0fc5d935ebf8bc3bc" 
+  ami                    = "var.ami_id" 
   instance_type          = "t2.small"
   key_name               = "master"
   associate_public_ip_address = true
@@ -10,8 +10,8 @@ resource "aws_instance" "strapi_ec2" {
               apt install -y docker.io
               systemctl start docker
               systemctl enable docker
-              docker pull ritesh2k24/strapi_app:latest
-              docker run -d -p 1337:1337 ritesh2k24/strapi_app:latest
+              docker pull ${var.image_uri}
+              docker run -d -p 1337:1337 ${var.image_uri}
               EOF
 
   tags = {
