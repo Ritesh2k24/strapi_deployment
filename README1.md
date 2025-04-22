@@ -1,4 +1,4 @@
-Automate Strapi Deployment with GitHub Actions + Terraform
+TASK 4: Automate Strapi Deployment with GitHub Actions + Terraform
 
 🚀 Strapi Deployment using GitHub Actions, Terraform, DockerHub & Ec2 Instance
 
