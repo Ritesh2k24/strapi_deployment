@@ -10,7 +10,8 @@ resource "aws_instance" "strapi_ec2" {
               apt install -y docker.io
               systemctl start docker
               systemctl enable docker
-              docker run -d -p 1337:1337 (var.image_uri)
+              docker pull ritesh2k24/strapi_app:latest
+              docker run -d -p 1337:1337 ritesh2k24/strapi_app:latest
               EOF
 
   tags = {

@@ -37,25 +37,18 @@ jobs:
       - name: Generate Terraform Plan
         run: |
           cd Terraform
-          terraform plan \
-            -var "image_uri=${{ secrets.IMAGE_URI }}" \
-
-
+          terraform plan
+            
       # Step 6: Apply Terraform Configuration (Deploy)
       - name: Apply Terraform Configuration
         run: |
           cd Terraform
-          terraform apply \
-            -var "image_uri=${{ secrets.IMAGE_URI }}" \
-            --auto-approve
+          terraform apply --auto-approve
 
       #  Step 7: (Optional) Destroy Terraform Resources
       #  name: Destroy Terraform Configuration (Optional)
       #   run: |
       #     cd Terraform
-      #     terraform destroy \
-      #       -var "ami_id=${{ secrets.AMI_ID }}" \
-      #       -var "instance_type=${{ secrets.INSTANCE_TYPE }}" \
+      #     terraform destroy \      
       #       -var "image_uri=${{ secrets.IMAGE_URI }}" \
-      #       -var "key_name=${{ secrets.KEY_NAME }}" \
       #       --auto-approve
