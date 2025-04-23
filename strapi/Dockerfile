@@ -28,6 +28,9 @@ COPY . .
 # ✅ COPY the .env file (this is the missing piece)
 COPY .env .env
 
+# copy the vite.config.js file
+COPY vite.config.js .
+
 # Build the Strapi admin panel
 RUN npm run build
 
