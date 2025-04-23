@@ -16,6 +16,7 @@ resource "aws_lb_target_group" "strapi_tg" {
   name     = "strapi-tg"
   port     = 1337
   protocol = "HTTP"
+  target_type = "ip"
   vpc_id   = aws_vpc.main.id
 
   health_check {

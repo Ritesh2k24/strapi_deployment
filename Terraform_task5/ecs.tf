@@ -1,3 +1,6 @@
+data "aws_caller_identity" "current" {}
+
+
 resource "aws_ecs_cluster" "strapi" {
   name = "strapi-cluster"
 }
@@ -8,6 +11,7 @@ resource "aws_ecs_task_definition" "strapi_task" {
   requires_compatibilities = ["FARGATE"]
   cpu = "512"
   memory = "1024"
+  execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecsTaskExecutionRole"
 
   container_definitions = jsonencode([{
     name = "strapi"
@@ -15,20 +19,33 @@ resource "aws_ecs_task_definition" "strapi_task" {
     essential = true
     portMappings = [{
       containerPort = 1337
+      hostport = 1337
       protocol = "tcp"
     }]
     environment = [
       {
-        name = "HOST"
-        value = "0.0.0.0"
+         name = "HOST"
+         value = "0.0.0.0"
+      },
+
+      {
+         name  = "APP_URL"
+         value = "http://${aws_lb.strapi_alb.dns_name}"
+      },
+
+      {
+         name  = "ALLOWED_HOSTS"
+         value = "*"
+      },
+
+
+      {
+         name = "PORT"
+         value = "1337"
       },
       {
-        name = "PORT"
-        value = "1337"
-      },
-      {
-        name = "APP_KEYS"
-        value = "your_key1,your_key2"
+         name = "APP_KEYS"
+         value = "your_key1,your_key2"
       }
     ]
   }])
@@ -41,10 +58,18 @@ resource "aws_ecs_service" "strapi_service" {
   desired_count = 1
 
   network_configuration {
-    subnets = aws_subnet.public[*].id
+    subnets = [aws_subnet.public_subnet_2.id]
     assign_public_ip = true
     security_groups = [aws_security_group.strapi_sg.id]
   }
 
+  load_balancer {
+    target_group_arn = aws_lb_target_group.strapi_tg.arn
+    container_name   = "strapi"               # this should match the name in your containerDefinitions
+    container_port   = 1337
+  }
+
   task_definition = aws_ecs_task_definition.strapi_task.arn
 }
+
+
