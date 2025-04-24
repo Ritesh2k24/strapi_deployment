@@ -26,7 +26,7 @@ WORKDIR /opt/app
 COPY . .
 
 # ✅ COPY the .env file (this is the missing piece)
-COPY .env .env
+#COPY .env .env
 
 # copy the vite.config.js file
 COPY vite.config.js .
