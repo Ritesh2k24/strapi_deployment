@@ -1,4 +1,4 @@
-name: Destroy Strapi Deployment
+name: Strapi Deployment using ECS
 
 on:
   workflow_dispatch:  # Triggered manually via the GitHub UI
