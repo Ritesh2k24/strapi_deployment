@@ -71,5 +71,3 @@ resource "aws_ecs_service" "strapi_service" {
 
   task_definition = aws_ecs_task_definition.strapi_task.arn
 }
-
-
