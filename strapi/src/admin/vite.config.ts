@@ -8,5 +8,11 @@ export default (config: UserConfig) => {
         '@': '/src',
       },
     },
+    server: {
+      host: true, // Listen on all addresses
+      allowedHosts: [
+        'strapi-alb-1413102396.us-east-1.elb.amazonaws.com',
+      ],
+    },
   });
 };
